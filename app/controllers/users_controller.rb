@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show]
-  before_action :authenticate_user!
+  before_action :respond_custom_message
 
   # GET /users
   def index
@@ -19,5 +19,9 @@ class UsersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def respond_custom_message
+    render json: { "message" => "Go to #{new_user_session_url} to login first" }, status: :unauthorized unless user_signed_in?
   end
 end

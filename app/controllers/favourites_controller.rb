@@ -1,5 +1,6 @@
 class FavouritesController < ApplicationController
   before_action :set_favourite, only: %i[show update destroy]
+  before_action :respond_custom_message, only %i[show update create destroy]
 
   # GET /favourites
   def index
@@ -48,5 +49,9 @@ class FavouritesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def favourite_params
     params.require(:favourite).permit(:user_id, :accommodation_id)
+  end
+
+  def respond_custom_message
+    render json: { "message" => "Go to #{new_user_session_url} to login first" }, status: :unauthorized unless user_signed_in?
   end
 end
