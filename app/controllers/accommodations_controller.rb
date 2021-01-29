@@ -52,6 +52,9 @@ class AccommodationsController < ApplicationController
   end
 
   def respond_custom_message
-    render json: { "message" => "Go to #{new_user_session_url} to login first" }, status: :unauthorized unless user_signed_in?
+    unless user_signed_in?
+      render json: { 'message' => "Go to #{new_user_session_url} to login first" },
+             status: :unauthorized
+    end
   end
 end
