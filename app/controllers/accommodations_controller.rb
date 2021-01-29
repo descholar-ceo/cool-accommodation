@@ -1,5 +1,5 @@
 class AccommodationsController < ApplicationController
-  before_action :set_accommodation, only: [:show, :update, :destroy]
+  before_action :set_accommodation, only: %i[show update destroy]
   before_action :authenticate_user!
 
   # GET /accommodations
@@ -40,13 +40,14 @@ class AccommodationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_accommodation
-      @accommodation = Accommodation.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def accommodation_params
-      params.require(:accommodation).permit(:name, :user_id, :price, :rooms, :description, :city)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_accommodation
+    @accommodation = Accommodation.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def accommodation_params
+    params.require(:accommodation).permit(:name, :user_id, :price, :rooms, :description, :city)
+  end
 end
