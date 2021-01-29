@@ -25,10 +25,10 @@ module CoolAccommodation
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-    config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Flash
-    config.middleware.use Rack::MethodOverride
-    config.middleware.use ActionDispatch::Session::CookieStore, {:key=>"_cool_accommodation_session"}
+    # config.middleware.use ActionDispatch::Cookies
+    # config.middleware.use ActionDispatch::Flash
+    # config.middleware.use Rack::MethodOverride
+    # config.middleware.use ActionDispatch::Session::CookieStore, {:key=>"_cool_accommodation_session"}
 
     # Configuration for the application, engines, and railties goes here.
     #
