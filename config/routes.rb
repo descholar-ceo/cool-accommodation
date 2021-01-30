@@ -2,5 +2,6 @@
 
 Rails.application.routes.draw do
 
+  resources :accommodations
   resources :users
 end

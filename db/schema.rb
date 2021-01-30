@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_30_180259) do
+ActiveRecord::Schema.define(version: 2021_01_30_182238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accommodations", force: :cascade do |t|
+    t.string "name", limit: 200
+    t.float "price", default: 5.0
+    t.string "city", limit: 100
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.integer "rooms", default: 1
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_accommodations_on_name", unique: true
+    t.index ["user_id"], name: "index_accommodations_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username", limit: 50
@@ -27,4 +40,5 @@ ActiveRecord::Schema.define(version: 2021_01_30_180259) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "accommodations", "users"
 end
