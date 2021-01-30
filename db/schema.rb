@@ -10,50 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_29_123717) do
+ActiveRecord::Schema.define(version: 2021_01_30_180259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "accommodations", force: :cascade do |t|
-    t.string "name"
-    t.bigint "user_id", null: false
-    t.float "price"
-    t.integer "rooms"
-    t.text "description"
-    t.string "city"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_accommodations_on_user_id"
-  end
-
-  create_table "favourites", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "accommodation_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["accommodation_id"], name: "index_favourites_on_accommodation_id"
-    t.index ["user_id"], name: "index_favourites_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "username"
+    t.string "username", limit: 50
+    t.string "password_digest"
+    t.string "email"
     t.boolean "admin_role", default: false
     t.boolean "user_role", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "accommodations", "users"
-  add_foreign_key "favourites", "accommodations"
-  add_foreign_key "favourites", "users"
 end
