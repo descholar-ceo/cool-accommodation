@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :favourites
   resources :accommodations
   resources :users
+  root to: "favourites#index"
 end
