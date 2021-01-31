@@ -2,9 +2,9 @@
 
 Rails.application.routes.draw do
   resources :favourites, only: [:index]
-  resources :accommodations do
+  resources :accommodations
+  resources :users do
     resources :favourites
   end
-  resources :users
   root to: "favourites#index"
 end
