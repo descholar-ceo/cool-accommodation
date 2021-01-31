@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   resources :favourites, only: [:index]
   resources :accommodations
+  resources :login, only: [:create, :destroy]
   resources :users do
     resources :favourites
   end
