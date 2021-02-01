@@ -2,9 +2,7 @@ class LoginController < ApplicationController
   # POST /login
   def create
     user = User.find_by(email: params[:email])
-    if user.nil?
-      render json: {error: 'Wrong credentials'}, status: :unprocessable_entity
-    else
+    if user.present? and user.authenticate params[:password]
       exp = Time.now.to_i + 86_400
       payload = { "iss": 'https://cool-accommodation-backend.herokuapp.com/',
                   "exp": exp,
@@ -13,10 +11,12 @@ class LoginController < ApplicationController
                   "username": user.username,
                   "email": user.email,
                   "id": user.id,
-                  "roles": {admin: user.admin_role, user: user.user_role} }
+                  "roles": { admin: user.admin_role, user: user.user_role } }
       @token = JWT.encode payload, Rails.configuration.x.oauth.jwt_secret, 'HS256'
 
       render json: @token, status: :created, location: @token
+    else
+      render json: { error: 'Wrong credentials' }, status: :unprocessable_entity
     end
   end
 
