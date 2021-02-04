@@ -12,7 +12,8 @@ class LoginController < ApplicationController
                   "email": user.email,
                   "id": user.id,
                   "roles": { admin: user.admin_role, user: user.user_role } }
-      @token = JWT.encode payload, Rails.configuration.x.oauth.jwt_secret, 'HS256'
+      hmac_secret = 'descholar'
+      @token = JWT.encode payload, hmac_secret, 'HS256'
 
       render json: @token, status: :created, location: @token
     else
