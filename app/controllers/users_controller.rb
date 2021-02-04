@@ -13,6 +13,16 @@ class UsersController < ApplicationController
     render json: @user
   end
 
+  def profile_pic
+    user = User.find_by(id: params[:id])
+  
+    if user&.profile_pic&.attached?
+      redirect_to rails_blob_url(user.profile_pic)
+    else
+      head :not_found
+    end
+  end
+
   # POST /users
   def create
     @user = User.new(user_params)
