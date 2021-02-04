@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :login, only: [:create, :destroy]
   resources :users do
     resources :favourites
+    get :profile_pic, on: :member
   end
   root to: "favourites#index"
 end

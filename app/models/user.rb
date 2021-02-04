@@ -10,4 +10,5 @@ class User < ApplicationRecord
   # associations
   has_many :accommodations
   has_many :favourites
+  has_one_attached :profile_pic
 end
