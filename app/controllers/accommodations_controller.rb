@@ -14,6 +14,17 @@ class AccommodationsController < ApplicationController
     render json: @accommodation
   end
 
+
+  def accommodation_pic
+    accommodation = Accommodation.find_by(id: params[:id])
+  
+    if accommodation&.accommodation_pic&.attached?
+      redirect_to rails_blob_url(accommodation.accommodation_pic)
+    else
+      head :not_found
+    end
+  end
+
   # POST /accommodations
   def create
     @accommodation = Accommodation.new(accommodation_params)

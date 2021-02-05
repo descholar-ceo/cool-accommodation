@@ -2,7 +2,9 @@
 
 Rails.application.routes.draw do
   resources :favourites, only: [:index]
-  resources :accommodations
+  resources :accommodations do
+    get :accommodation_pic, on: :member
+  end
   resources :login, only: [:create, :destroy]
   resources :users do
     resources :favourites
