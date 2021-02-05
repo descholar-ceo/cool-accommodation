@@ -14,14 +14,13 @@ class AccommodationsController < ApplicationController
     render json: @accommodation
   end
 
-
   def accommodation_pic
     accommodation = Accommodation.find_by(id: params[:id])
-  
+
     if accommodation&.accommodation_pic&.attached?
       redirect_to rails_blob_url(accommodation.accommodation_pic)
     else
-      render json: {error: 'Image not found'}, status: :not_found
+      render json: { error: 'Image not found' }, status: :not_found
     end
   end
 
@@ -64,19 +63,27 @@ class AccommodationsController < ApplicationController
 
   # Verify if a user is logged in
   def verify_login
-    token = request.headers["HTTP_AUTHORIZATION"]
+    token = request.headers['HTTP_AUTHORIZATION']
     hmac_secret = 'descholar'
     expected_iss = 'https://cool-accommodation-backend.herokuapp.com/'
-    expected_aud =  '238d4793-70de-4183-9707-48ed8ecd19d9'
+    expected_aud = '238d4793-70de-4183-9707-48ed8ecd19d9'
 
     return render json: { error: 'login first token is missing' }, status: :forbidden unless token
 
     token.gsub! 'Bearer ', ''
     begin
-      decoded_token = JWT.decode token, hmac_secret, true, { verify_iss: true, iss: expected_iss, verify_aud: true, aud: expected_aud, algorithm: 'HS256' }
+      decoded_token = JWT.decode token, hmac_secret, true,
+                                 { verify_iss: true,
+                                   iss: expected_iss,
+                                   verify_aud: true,
+                                   aud: expected_aud,
+                                   algorithm: 'HS256' }
       puts "The decoded token #{decoded_token}"
     rescue JWT::DecodeError
-      return render json: { error: 'login first, something wrong happened with your credentials' }, status: :forbidden unless token
+      unless token
+        render json: { error: 'login first, something wrong happened with your credentials' },
+               status: :forbidden
+      end
     end
   end
 end

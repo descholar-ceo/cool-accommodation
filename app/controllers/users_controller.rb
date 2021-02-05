@@ -15,11 +15,11 @@ class UsersController < ApplicationController
 
   def profile_pic
     user = User.find_by(id: params[:id])
-  
+
     if user&.profile_pic&.attached?
       redirect_to rails_blob_url(user.profile_pic)
     else
-      render json: {error: 'Image not found'}, status: :not_found
+      render json: { error: 'Image not found' }, status: :not_found
     end
   end
 
