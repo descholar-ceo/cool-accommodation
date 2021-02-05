@@ -4,7 +4,7 @@ class AccommodationsController < ApplicationController
 
   # GET /accommodations
   def index
-    @accommodations = Accommodation.all
+    @accommodations = Accommodation.all.order(created_at: :desc)
 
     render json: @accommodations
   end

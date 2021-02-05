@@ -3,7 +3,7 @@ class FavouritesController < ApplicationController
 
   # GET /favourites
   def index
-    @favourites = Favourite.all
+    @favourites = Favourite.all.order(created_at: :desc)
 
     render json: @favourites
   end
