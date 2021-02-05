@@ -21,7 +21,7 @@ class AccommodationsController < ApplicationController
     if accommodation&.accommodation_pic&.attached?
       redirect_to rails_blob_url(accommodation.accommodation_pic)
     else
-      head :not_found
+      render json: {error: 'Image not found'}, status: :not_found
     end
   end
 
