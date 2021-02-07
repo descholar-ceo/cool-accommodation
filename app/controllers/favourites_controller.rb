@@ -5,7 +5,7 @@ class FavouritesController < ApplicationController
   def index
     @favourites = Favourite.all.order(created_at: :desc)
     @recent_favourite = @favourites.first.accommodation
-    render json: {recent: @recent_favourite, all_favourites: @favourites}
+    render json: { recent: @recent_favourite, all_favourites: @favourites }
   end
 
   # GET /favourites/1
