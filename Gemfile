@@ -18,8 +18,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt', '~> 2.2', '>= 2.2.2'
 gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 # gem 'devise', '~> 4.7', '>= 4.7.3'
-# gem 'rails_admin', '~> 2.0', '>= 2.0.2'
+gem 'rails_admin', '~> 2.0', '>= 2.0.2'
 # gem 'devise_token_auth', '~> 1.1', '>= 1.1.4'
+gem 'nested_form', '~> 0.3.2'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
