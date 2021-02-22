@@ -63,7 +63,8 @@ class AccommodationsController < ApplicationController
 
   # Verify if a user is logged in
   def verify_login
-    token = request.headers['HTTP_AUTHORIZATION']
+    puts "The sent headers are #{request.headers['token']}"
+    token = request.headers['token']
     hmac_secret = 'descholar'
     expected_iss = 'https://cool-accommodation-backend.herokuapp.com/'
     expected_aud = '238d4793-70de-4183-9707-48ed8ecd19d9'
