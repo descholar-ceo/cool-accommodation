@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2021_02_04_201351) do
 
   create_table "accommodations", force: :cascade do |t|
     t.string "name", limit: 200
-    t.float "price", default: 5.0
+    t.float "price", default: 500.0
     t.text "description"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
