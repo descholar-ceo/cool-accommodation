@@ -10,5 +10,4 @@ Rails.application.routes.draw do
     resources :favourites, except: %i[edit update]
     get :profile_pic, on: :member
   end
-  root to: "favourites#index"
 end
