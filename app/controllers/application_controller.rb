@@ -5,7 +5,6 @@ class ApplicationController < ActionController::API
 
   # Verify if a user is logged in
   def verify_login
-    puts "The sent headers are #{request.headers['token']}"
     token = request.headers['token']
     hmac_secret = 'descholar'
     expected_iss = 'https://cool-accommodation-backend.herokuapp.com/'
@@ -15,13 +14,12 @@ class ApplicationController < ActionController::API
 
     token.gsub! 'Bearer ', ''
     begin
-      decoded_token = JWT.decode token, hmac_secret, true,
-                                 { verify_iss: true,
-                                   iss: expected_iss,
-                                   verify_aud: true,
-                                   aud: expected_aud,
-                                   algorithm: 'HS256' }
-      puts "The decoded token #{decoded_token}"
+      JWT.decode token, hmac_secret, true,
+                 { verify_iss: true,
+                   iss: expected_iss,
+                   verify_aud: true,
+                   aud: expected_aud,
+                   algorithm: 'HS256' }
     rescue JWT::DecodeError
       unless token
         render json: { error: 'login first, something wrong happened with your credentials' },
