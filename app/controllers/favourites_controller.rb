@@ -15,7 +15,7 @@ class FavouritesController < ApplicationController
       all_favourites_accommodations << fav_hash
       counter += 1
     end
-    result_to_render = all_favourites_accommodations.to_s.gsub('=>',':')
+    result_to_render = all_favourites_accommodations.to_s.gsub('=>', ':')
     render json: { my_favourites: result_to_render }
   end
 

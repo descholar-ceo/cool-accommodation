@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::API
-
   protected
 
   # Verify if a user is logged in
