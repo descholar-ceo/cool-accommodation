@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   resources :accommodations do
     get :accommodation_pic, on: :member
   end
-  resources :login, only: [:create, :destroy]
+  resources :login, only: %i[:create :destroy]
   resources :users do
-    resources :favourites
+    resources :favourites, except: %i[edit update]
     get :profile_pic, on: :member
   end
   root to: "favourites#index"
