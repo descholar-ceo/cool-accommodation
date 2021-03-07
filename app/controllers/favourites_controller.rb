@@ -1,11 +1,12 @@
 class FavouritesController < ApplicationController
   before_action :set_favourite, only: %i[show update destroy]
+  before_action :verify_login
 
   # GET /favourites
   def index
     curr_user_favorites = Favourite.where(user_id: params[:user_id]).order(created_at: :desc)
     all_favourites_accommodations = []
-    return render json: { error: 'No favourites accommodations were found' } unless curr_user_favorites.nil?
+    return render json: { error: 'No favourites accommodations were found' } if curr_user_favorites.size.zero?
 
     counter = 0
     while counter < curr_user_favorites.size
@@ -14,7 +15,8 @@ class FavouritesController < ApplicationController
       all_favourites_accommodations << fav_hash
       counter += 1
     end
-    render json: { my_favourites: all_favourites_accommodations }
+    result_to_render = all_favourites_accommodations.to_s.gsub('=>',':')
+    render json: { my_favourites: result_to_render }
   end
 
   # GET /favourites/1

@@ -1,5 +1,6 @@
 class AccommodationsController < ApplicationController
   before_action :set_accommodation, only: %i[show update destroy]
+  before_action :verify_login
 
   # GET /accommodations
   def index

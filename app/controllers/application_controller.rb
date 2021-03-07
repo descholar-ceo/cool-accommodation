@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::API
-  before_action :verify_login
 
-  private
+  protected
 
   # Verify if a user is logged in
   def verify_login
