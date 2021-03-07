@@ -8,6 +8,5 @@ Rails.application.routes.draw do
   resources :login, only: %i[:create :destroy]
   resources :users do
     resources :favourites, except: %i[edit update]
-    get :profile_pic, on: :member
   end
 end
