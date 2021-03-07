@@ -1,5 +1,4 @@
 class AccommodationsController < ApplicationController
-  before_action :verify_login
   before_action :set_accommodation, only: %i[show update destroy]
 
   # GET /accommodations
@@ -59,32 +58,5 @@ class AccommodationsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def accommodation_params
     params.require(:accommodation).permit(:name, :price, :city, :description, :user_id, :rooms)
-  end
-
-  # Verify if a user is logged in
-  def verify_login
-    puts "The sent headers are #{request.headers['token']}"
-    token = request.headers['token']
-    hmac_secret = 'descholar'
-    expected_iss = 'https://cool-accommodation-backend.herokuapp.com/'
-    expected_aud = '238d4793-70de-4183-9707-48ed8ecd19d9'
-
-    return render json: { error: 'login first token is missing' }, status: :forbidden unless token
-
-    token.gsub! 'Bearer ', ''
-    begin
-      decoded_token = JWT.decode token, hmac_secret, true,
-                                 { verify_iss: true,
-                                   iss: expected_iss,
-                                   verify_aud: true,
-                                   aud: expected_aud,
-                                   algorithm: 'HS256' }
-      puts "The decoded token #{decoded_token}"
-    rescue JWT::DecodeError
-      unless token
-        render json: { error: 'login first, something wrong happened with your credentials' },
-               status: :forbidden
-      end
-    end
   end
 end
