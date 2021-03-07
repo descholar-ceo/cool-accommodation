@@ -3,10 +3,18 @@ class FavouritesController < ApplicationController
 
   # GET /favourites
   def index
-    @favourites = Favourite.all.order(created_at: :desc)
-    @recent_favourite = @favourites.first.accommodation
-    @curr_user_favorites = Favourite.where(user_id: params[:user_id])
-    render json: { recent: @recent_favourite, all_favourites: @favourites, my_favourites: @curr_user_favorites }
+    curr_user_favorites = Favourite.where(user_id: params[:user_id]).order(created_at: :desc)
+    all_favourites_accommodations = []
+    return render json: { error: 'No favourites accommodations were found' } unless curr_user_favorites.nil?
+
+    counter = 0
+    while counter < curr_user_favorites.size
+      fav_hash = {}
+      fav_hash['favourite_accommodation'] = curr_user_favorites[counter].accommodation
+      all_favourites_accommodations << fav_hash
+      counter += 1
+    end
+    render json: { my_favourites: all_favourites_accommodations }
   end
 
   # GET /favourites/1
