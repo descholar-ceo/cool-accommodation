@@ -18,10 +18,8 @@ ActiveRecord::Schema.define(version: 2021_02_04_201351) do
   create_table "accommodations", force: :cascade do |t|
     t.string "name", limit: 200
     t.float "price", default: 5.0
-    t.string "city", limit: 100
     t.text "description"
     t.bigint "user_id", null: false
-    t.integer "rooms", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_accommodations_on_name", unique: true
@@ -66,15 +64,11 @@ ActiveRecord::Schema.define(version: 2021_02_04_201351) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username", limit: 50
     t.string "password_digest"
     t.string "email"
-    t.boolean "admin_role", default: false
-    t.boolean "user_role", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "accommodations", "users"
