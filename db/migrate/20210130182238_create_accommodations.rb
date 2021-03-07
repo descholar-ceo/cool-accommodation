@@ -9,13 +9,5 @@ class CreateAccommodations < ActiveRecord::Migration[6.1]
       t.timestamps
     end
     add_index :accommodations, :name, unique: true
-
-    ## Initialize first accommodation:
-    Accommodation.create! do |acc|
-      acc.name           = 'neza guest house'
-      acc.price          = 1299.99
-      acc.description    = 'Cool place to stay while in your holiday, it\'s near the lake Kivu'
-      acc.user           = User.first
-    end
   end
 end
