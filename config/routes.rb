@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :accommodations do
     get :accommodation_pic, on: :member
   end
-  resources :login, only: %i[:create :destroy]
+  resources :login, except: %i[:create :destroy]
   resources :users do
     resources :favourites, except: %i[edit update]
   end
