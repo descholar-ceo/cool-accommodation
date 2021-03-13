@@ -18,9 +18,4 @@ class LoginController < ApplicationController
       render json: { error: 'Wrong credentials' }, status: :unprocessable_entity
     end
   end
-
-  # DELETE /destroy
-  # def destroy
-  #   @user.destroy
-  # end
 end
