@@ -18,8 +18,8 @@ class FavouritesController < ApplicationController
     @favourite = Favourite.new(favourite_params)
 
     if @favourite.save
-      @allMyFavourites = Favourite.where(user_id: params[:user_id]).order(created_at: :desc)
-      render json: @allMyFavourites, status: :created, location: @favourite
+      @all_my_favourites = Favourite.where(user_id: params[:user_id]).order(created_at: :desc)
+      render json: @all_my_favourites, status: :created, location: @favourite
     else
       render json: @favourite.errors, status: :unprocessable_entity
     end
