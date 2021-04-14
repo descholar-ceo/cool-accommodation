@@ -25,18 +25,12 @@ class FavouritesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /favourites/1
-  def update
-    if @favourite.update(favourite_params)
-      render json: @favourite
-    else
-      render json: @favourite.errors, status: :unprocessable_entity
-    end
-  end
-
   # DELETE /favourites/1
   def destroy
     @favourite.destroy
+    @all_my_favourites = Favourite.where(user_id: params[:user_id]).order(created_at: :desc)
+    puts "the passed user_id is : #{params[:user_id]}"
+    render json: @all_my_favourites, status: :ok, location: @all_my_favourites
   end
 
   private

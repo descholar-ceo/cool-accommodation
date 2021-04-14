@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   resources :login, only: [:create]
   resources :favourites
   resources :users do
-    resources :favourites, except: %i[edit update create]
+    resources :favourites
   end
 end
