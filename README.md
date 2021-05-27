@@ -27,12 +27,8 @@
 ### API endpoints
 - Api Roots: https://cool-accommodation-backend.herokuapp.com/
 
-| Endpoint | Request | Status | Description |
-| --- | --- | --- | --- |
-| / | GET | 200 OK | Get all favorites accommodations|
-
-
-Others are coming soon!!!
+## To add more houses
+In order to add more houses, kindly use an admin dashboard: [Here](https://cool-accommodation-backend.herokuapp.com/admin)
 
 ## Authors
 
