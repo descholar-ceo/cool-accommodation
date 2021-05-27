@@ -1,5 +1,5 @@
 class FavouritesController < ApplicationController
-  before_action :set_favourite, only: %i[show update destroy]
+  before_action :set_favourite, only: %i[show update]
   before_action :verify_login
 
   # GET /favourites
@@ -29,9 +29,10 @@ class FavouritesController < ApplicationController
 
   # DELETE /favourites/1
   def destroy
+    @favourite = Favourite.find_by(accommodation_id: params[:favourite_id])
     @favourite.destroy
-    @all_my_favourites = Favourite.where(user_id: params[:user_id]).order(created_at: :desc)
-    render json: @all_my_favourites, status: :ok, location: @all_my_favourites
+    @curr_user_favorites = Favourite.where(user_id: params[:user_id]).order(created_at: :desc)
+    render json: @curr_user_favorites
   end
 
   private
@@ -40,11 +41,4 @@ class FavouritesController < ApplicationController
   def set_favourite
     @favourite = Favourite.find(params[:id])
   end
-
-  # # Only allow a list of trusted parameters through.
-  # def favourite_params
-  #   puts "the submitted params are #{params}"
-  #   puts "request body is : #{request.params}"
-  #   params.require(:favourite).permit(:accommodation_id)
-  # end
 end
