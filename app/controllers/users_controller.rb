@@ -28,9 +28,19 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      exp = Time.now.to_i + 86_400
+      payload = { "iss": 'https://cool-accommodation-backend.herokuapp.com/',
+                  "exp": exp,
+                  "aud": '238d4793-70de-4183-9707-48ed8ecd19d9',
+                  "sub": '19016b73-3ffa-4b26-80d8-aa9287738677',
+                  "email": @user.email,
+                  "id": @user.id }
+      hmac_secret = 'descholar'
+      @token = JWT.encode payload, hmac_secret, 'HS256'
+
+      render json: @token, status: :created, location: @token
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { error: @user.errors }, status: :unprocessable_entity
     end
   end
 
