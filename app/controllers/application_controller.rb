@@ -3,9 +3,8 @@ class ApplicationController < ActionController::API
 
   # Verify if a user is logged in
   def verify_login
-    headers = request.headers
-    token = headers['token']
-    token = params[:headers][:token] unless token
+    token = request.headers['token']
+    token ||= params[:headers][:token]
     hmac_secret = 'descholar'
     expected_iss = 'https://cool-accommodation-backend.herokuapp.com/'
     expected_aud = '238d4793-70de-4183-9707-48ed8ecd19d9'
