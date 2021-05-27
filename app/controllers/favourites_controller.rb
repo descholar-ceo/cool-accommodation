@@ -15,11 +15,13 @@ class FavouritesController < ApplicationController
 
   # POST /favourites
   def create
-    @favourite = Favourite.new(favourite_params)
+    @favourite = Favourite.new
+    @favourite.user_id = params[:user_id]
+    @favourite.accommodation_id = params[:favourite][:accomodation_id]
 
     if @favourite.save
-      @all_my_favourites = Favourite.where(user_id: params[:user_id]).order(created_at: :desc)
-      render json: @all_my_favourites, status: :created, location: @all_my_favourites
+      @curr_user_favorites = Favourite.where(user_id: params[:user_id]).order(created_at: :desc)
+      render json: @curr_user_favorites
     else
       render json: @favourite.errors, status: :unprocessable_entity
     end
@@ -29,7 +31,6 @@ class FavouritesController < ApplicationController
   def destroy
     @favourite.destroy
     @all_my_favourites = Favourite.where(user_id: params[:user_id]).order(created_at: :desc)
-    puts "the passed user_id is : #{params[:user_id]}"
     render json: @all_my_favourites, status: :ok, location: @all_my_favourites
   end
 
@@ -40,8 +41,10 @@ class FavouritesController < ApplicationController
     @favourite = Favourite.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
-  def favourite_params
-    params.require(:favourite).permit(:user_id, :accommodation_id)
-  end
+  # # Only allow a list of trusted parameters through.
+  # def favourite_params
+  #   puts "the submitted params are #{params}"
+  #   puts "request body is : #{request.params}"
+  #   params.require(:favourite).permit(:accommodation_id)
+  # end
 end
